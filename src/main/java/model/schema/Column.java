@@ -6,13 +6,12 @@ public class Column {
     private String columnName;
     private Object columnValue;
 
-    public Column addColumn(String columnName, Object columnValue, Column columnObject) throws InvalidValueException {
+    public Column(String columnName, Object columnValue) throws InvalidValueException {
         if (columnValue.toString().equals("") || columnValue.equals(-1))
             throw new InvalidValueException("Invalid Value for model.schema.Column");
         else {
-            columnObject.setColumnName(columnName);
-            columnObject.setColumnValue(columnValue);
-            return columnObject;
+            this.setColumnName(columnName);
+            this.setColumnValue(columnValue);
         }
     }
 

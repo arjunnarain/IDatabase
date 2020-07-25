@@ -7,13 +7,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class TableSchema {
-    private Map<String, Object> tableSchemaMap;
+    protected Map<String, Object> tableSchemaMap = new LinkedHashMap<>();
 
-    TableSchema() {
-        tableSchemaMap = new LinkedHashMap<>();
-    }
-
-    public void addTableColumn(String columnName, String columnType) throws InvalidDataTypeException {
+    private void addTableColumn(String columnName, String columnType) throws InvalidDataTypeException {
         if (columnType.equalsIgnoreCase(CustomType.CUSTOM_INTEGER.getTypeName()))
             this.tableSchemaMap.put(columnName, CustomType.CUSTOM_INTEGER.getDataType());
         else if (columnType.equalsIgnoreCase(CustomType.CUSTOM_STRING.getTypeName()))
@@ -24,5 +20,10 @@ public class TableSchema {
 
     public Map<String, Object> getTableSchema() {
         return tableSchemaMap;
+    }
+
+    public void createTableSchema(Map<String, String> userColumnMap) throws InvalidDataTypeException {
+        for (Map.Entry<String, String> mapEntry : userColumnMap.entrySet())
+            addTableColumn(mapEntry.getKey(), mapEntry.getValue());
     }
 }

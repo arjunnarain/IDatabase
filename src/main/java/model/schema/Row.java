@@ -4,12 +4,13 @@ import model.schema.Column;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Row {
     private static final AtomicInteger rowUID = new AtomicInteger(0);
     private int rowID;
-    private ArrayList<Column> columnList;
+    private LinkedList<Column> columnList;
 
     Row() {
         rowUID.getAndIncrement();
@@ -24,7 +25,7 @@ public class Row {
         return rowID;
     }
 
-    public ArrayList<Column> getColumnList() {
+    public LinkedList<Column> getColumnList() {
         return columnList;
     }
 }
