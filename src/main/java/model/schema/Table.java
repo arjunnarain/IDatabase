@@ -24,14 +24,26 @@ public class Table extends TableSchema{
         createTableSchema(columnSchema);
     }
 
+    public LinkedList<Row> getRowList() {
+        return rowList;
+    }
+
     //this function expects order to be maintained
-    public void insertIntoTable(String... values) throws InvalidValueException, InvalidNumberOfArguments{
+    public void insertIntoTable(String... values) throws InvalidValueException, InvalidNumberOfArguments, InvalidDataTypeException {
         LinkedHashSet<String> columnNames = (LinkedHashSet<String>) tableSchemaMap.keySet();
         if (columnNames.size() == values.length) {
+            int enforceInsertionOrder = 0;
+            ArrayList<Object> schemaValues = (ArrayList<Object>) tableSchemaMap.values();
+            LinkedList<Column> columns = new LinkedList<>();
+            Row row = new Row();
             Iterator<String> columnIterator = columnNames.iterator();
             for (String value : values) {
-                Column column = new Column(columnIterator.next(), value);
+                Column column = new Column(columnIterator.next(), value, schemaValues.get(enforceInsertionOrder));
+                columns.add(column);
+                enforceInsertionOrder++;
             }
+            row.addRow(columns);
+            this.rowList.add(row);
         }
         else
             throw new InvalidNumberOfArguments(Errors.INVALID_NUMBER_OF_ARGUMENTS);

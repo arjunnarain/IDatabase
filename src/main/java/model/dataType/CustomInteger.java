@@ -10,8 +10,8 @@ public class CustomInteger {
         parsedInteger = -1;
     }
 
-    public Integer getParsedInteger(int rawInteger) {
-        setRawInteger(rawInteger);
+    public Integer getParsedData(int rawInteger) {
+        setRawData(rawInteger);
         validateValue();
         return this.parsedInteger;
     }
@@ -21,7 +21,7 @@ public class CustomInteger {
             this.parsedInteger =  this.rawInteger;
     }
 
-    private void setRawInteger(int rawInteger) {
+    private void setRawData(int rawInteger) {
         this.rawInteger = rawInteger;
     }
 }

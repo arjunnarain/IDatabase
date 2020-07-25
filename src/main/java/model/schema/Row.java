@@ -5,6 +5,7 @@ import model.schema.Column;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Row {
@@ -16,8 +17,8 @@ public class Row {
         rowUID.getAndIncrement();
     }
 
-    public void addRow(Column... columnObjects) {
-        this.columnList.addAll(Arrays.asList(columnObjects));
+    public void addRow(List<Column> columnArrayList) {
+        this.columnList = (LinkedList<Column>) columnArrayList;
         this.rowID = rowUID.getAndIncrement();
     }
 

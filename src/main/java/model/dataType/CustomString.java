@@ -16,13 +16,13 @@ public class CustomString {
         isTruncate = false;
     }
 
-    public String getParsedString(String rawString) {
+    public String getParsedData(String rawString) {
         setRawString(rawString);
-        validateString();
+        validateValue();
         return parsedString;
     }
 
-    private void validateString() {
+    private void validateValue() {
         if (rawString.length() <= Constants.STRING_MAX_LENGTH)
             this.parsedString = rawString;
         else {
