@@ -1,6 +1,5 @@
 package model.schema;
 
-import constants.Constants;
 import constants.Errors;
 import exception.InvalidDataTypeException;
 import exception.InvalidNumberOfArguments;
@@ -10,18 +9,26 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Table extends TableSchema{
-    private int tableId;
-    private LinkedList<Row> rowList;
+    private final int tableId;
+    private final LinkedList<Row> rowList;
+
+    public int getTableId() {
+        return tableId;
+    }
 
     private static final AtomicInteger tableUID = new AtomicInteger(0);
 
-    Table() {
-        tableUID.getAndIncrement();
+    public Table() {
+        this.tableId = tableUID.incrementAndGet();
         rowList = new LinkedList<>();
     }
 
     public void createTable(Map<String, String> columnSchema) throws InvalidDataTypeException {
         createTableSchema(columnSchema);
+    }
+
+    public Map<String, Object> getTableSchema() {
+        return super.getTableSchema();
     }
 
     public LinkedList<Row> getRowList() {

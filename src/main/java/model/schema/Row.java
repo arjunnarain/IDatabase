@@ -14,7 +14,7 @@ public class Row {
     private LinkedList<Column> columnList;
 
     Row() {
-        rowUID.getAndIncrement();
+        rowUID.incrementAndGet();
     }
 
     public void addRow(List<Column> columnArrayList) {
