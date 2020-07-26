@@ -13,7 +13,7 @@ public class Row {
     private int rowID;
     private LinkedList<Column> columnList;
 
-    Row() {
+    public Row() {
         rowUID.incrementAndGet();
     }
 

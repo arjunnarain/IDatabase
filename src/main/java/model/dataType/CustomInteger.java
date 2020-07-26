@@ -10,7 +10,13 @@ public class CustomInteger {
         parsedInteger = -1;
     }
 
-    public Integer getParsedData(int rawInteger) {
+    public Integer getParsedData(String unformattedString) {
+        try {
+            rawInteger = Integer.valueOf(unformattedString);
+        }
+        catch (NumberFormatException numberFormatException) {
+            System.out.println(numberFormatException.getMessage());
+        }
         setRawData(rawInteger);
         validateValue();
         return this.parsedInteger;

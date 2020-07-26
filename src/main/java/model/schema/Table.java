@@ -8,7 +8,8 @@ import exception.InvalidValueException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Table extends TableSchema{
+public class
+Table extends TableSchema{
     private final int tableId;
     private final LinkedList<Row> rowList;
 
@@ -37,10 +38,10 @@ public class Table extends TableSchema{
 
     //this function expects order to be maintained
     public void insertIntoTable(String... values) throws InvalidValueException, InvalidNumberOfArguments, InvalidDataTypeException {
-        LinkedHashSet<String> columnNames = (LinkedHashSet<String>) tableSchemaMap.keySet();
+        Set<String> columnNames = this.tableSchemaMap.keySet();
         if (columnNames.size() == values.length) {
             int enforceInsertionOrder = 0;
-            ArrayList<Object> schemaValues = (ArrayList<Object>) tableSchemaMap.values();
+            ArrayList<Object> schemaValues = new ArrayList<>(tableSchemaMap.values());
             LinkedList<Column> columns = new LinkedList<>();
             Row row = new Row();
             Iterator<String> columnIterator = columnNames.iterator();
