@@ -17,7 +17,6 @@ public class CustomInteger {
         catch (NumberFormatException numberFormatException) {
             System.out.println(numberFormatException.getMessage());
         }
-        setRawData(rawInteger);
         validateValue();
         return this.parsedInteger;
     }

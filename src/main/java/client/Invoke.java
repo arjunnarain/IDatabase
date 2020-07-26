@@ -7,6 +7,7 @@ import model.schema.Column;
 import model.schema.Row;
 import model.schema.Table;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -15,7 +16,7 @@ import java.util.Scanner;
 public class Invoke {
     static Table table = new Table();
     public static LinkedList<Column> columnList = new LinkedList<>();
-    public static void main(String[] args) throws InvalidDataTypeException, InvalidValueException, InvalidNumberOfArguments {
+    public static void main(String[] args) throws InvalidDataTypeException, InvalidValueException, InvalidNumberOfArguments, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         Map<String, String> tableSchema = new HashMap<>();
         tableSchema.put("NAME", "string");
         tableSchema.put("ID", "int");

@@ -5,7 +5,7 @@ import exception.InvalidQuerySyntax;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StringUtils {
+public class StringUtil {
 
     public static Map<String, String> splitCreateQuery(String query) {
         Map<String, String> columnSchema = new HashMap<>();

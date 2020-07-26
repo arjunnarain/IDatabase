@@ -6,6 +6,7 @@ import exception.InvalidDataTypeException;
 import exception.InvalidValueException;
 import model.dataType.CustomInteger;
 import model.dataType.CustomString;
+import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -13,14 +14,10 @@ public class Column {
     private String columnName;
     private Object columnValue;
 
-    public Column(String columnName, Object columnValue, Object columnType) throws InvalidValueException, InvalidDataTypeException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    public Column(String columnName, Object columnValue, Object columnType) throws InvalidValueException, InvalidDataTypeException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         if (validateDataType(columnType)) {
-            if (columnValue.toString().equals("") || columnValue.equals(-1))
-                throw new InvalidValueException("Invalid Value for model.schema.Column");
-            else {
-                this.setColumnName(columnName);
-                this.setColumnValue(columnValue);
-            }
+            this.setColumnName(columnName);
+            this.setColumnValue(columnValue);
         } else
             throw new InvalidDataTypeException(Errors.INVALID_DATA_TYPE);
     }
@@ -33,9 +30,11 @@ public class Column {
         this.columnName = columnName;
     }
 
-    private void setColumnValue(Object columnValue) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    private void setColumnValue(Object columnValue) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, NullPointerException, InstantiationException, InvalidValueException {
         columnValue = getFormattedValue(columnValue);
-        if (columnValue != null)
+        if (columnValue.toString().equals("") || columnValue.equals(-1))
+            throw new InvalidValueException("Invalid Value for model.schema.Column");
+        else if (columnValue != null)
             this.columnValue = columnValue;
         else
             throw new NullPointerException();
@@ -49,12 +48,17 @@ public class Column {
         return columnValue;
     }
 
-    private Object getFormattedValue(Object columnValue) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    private Object getFormattedValue(Object columnValue) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException {
         CustomType[] values = CustomType.values();
         Object parsedValue = null;
+        CustomInteger customInteger = new CustomInteger();
+        if (StringUtils.isNumeric((CharSequence) columnValue))
+            columnValue = Integer.valueOf(columnValue.toString());
         for (CustomType dataTypeEnum : values) {
             if (columnValue.getClass().getCanonicalName().equals(dataTypeEnum.getRawClassName()))
-                parsedValue = dataTypeEnum.getDataType().getClass().getMethod("getParsedData", String.class).invoke(columnValue);
+                //parsedValue = customInteger.getParsedData(columnValue.toString());
+                parsedValue = dataTypeEnum.getDataType().getClass().getMethod("getParsedData", String.class).invoke(dataTypeEnum.getDataType().getClass().getDeclaredConstructor().newInstance(), columnValue.toString());
+
         }
         return parsedValue;
     }

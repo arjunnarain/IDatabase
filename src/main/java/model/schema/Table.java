@@ -5,6 +5,7 @@ import exception.InvalidDataTypeException;
 import exception.InvalidNumberOfArguments;
 import exception.InvalidValueException;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -37,7 +38,7 @@ Table extends TableSchema{
     }
 
     //this function expects order to be maintained
-    public void insertIntoTable(String... values) throws InvalidValueException, InvalidNumberOfArguments, InvalidDataTypeException {
+    public void insertIntoTable(String... values) throws InvalidValueException, InvalidNumberOfArguments, InvalidDataTypeException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         Set<String> columnNames = this.tableSchemaMap.keySet();
         if (columnNames.size() == values.length) {
             int enforceInsertionOrder = 0;
